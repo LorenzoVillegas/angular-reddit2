@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Foo } from './foo.model';
+import { Article, Foo } from './foo.model';
 
 @Component({
   selector: 'app-foo',
@@ -14,8 +14,9 @@ export class FooComponent {
   dataPost: Object;
   o :Observable<Object>;
   fooData : Foo[];
+  articleData: Article[];
   oFoo : Observable<Foo[]>;
-
+  oArticle: Observable<Article[]>;
   constructor(public http: HttpClient) {
 
   }
@@ -25,7 +26,7 @@ export class FooComponent {
     this.loading = true; 
     //Facciamo una get e otteniamo l'oggetto Observable che attende la risposta
     //this.o = this.http.get('https://my-json-server.typicode.com/PaoloCarugati/dischi/records/1');
-    this.o = this.http.get('https://my-json-server.typicode.com/PaoloCarugati/dischi/records/');
+    this.o = this.http.get('https://my-json-server.typicode.com/LorenzoVillegas/Reddit/links');
     //Attacchiamo all'Observable o un metodo "observer" che verrà lanciato quando arriva la 
     //risposta
     this.o.subscribe(this.getData);
@@ -46,7 +47,7 @@ export class FooComponent {
    makeCompactRequest(): void {
     this.loading = true;
     this.http
-      .get('https://my-json-server.typicode.com/PaoloCarugati/dischi/records/1')
+      .get('https://my-json-server.typicode.com/LorenzoVillegas/Reddit/links/1')
       .subscribe(d => {
         this.dataGet = d;
         this.loading = false;
@@ -57,8 +58,8 @@ export class FooComponent {
    makeTypedRequest() : void
    {
      //oFoo : Observable<Foo[]>; va dichiarato tra gli attributi della classe 
-     this.oFoo = this.http.get<Foo[]>('https://my-json-server.typicode.com/PaoloCarugati/dischi/records');
-     this.oFoo.subscribe(d => {this.fooData = d;});
+     this.oArticle = this.http.get<Article[]>('https://my-json-server.typicode.com/LorenzoVillegas/Reddit/links');
+     this.oArticle.subscribe(d => {this.articleData = d;});
    }  
  
 
